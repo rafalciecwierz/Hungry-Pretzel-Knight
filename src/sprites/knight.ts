@@ -6,17 +6,20 @@ export default class Knight extends PIXI.AnimatedSprite{
     isJumping: boolean = false;
     isFalling: boolean = false;
     direction: 'left' | 'right' | 'idle' = 'idle';
+    knightTextures: knightTypes;
 
-    constructor() {
-        let textureArray = [];
+    constructor({
+        idle,
+        left,
+        right
+    }:knightTypes ) {
+        super(idle);
 
-        for (let i=0; i < 4; i++)
-        {
-            let texture = PIXI.Texture.from(`./images/knight/knight iso char_idle_${i}.png`);
-            textureArray.push(texture);
-        };
-
-        super(textureArray);
+        this.knightTextures = {
+            idle,
+            left,
+            right
+        }
 
         this.width = this.size;
         this.height = this.size;
@@ -31,29 +34,17 @@ export default class Knight extends PIXI.AnimatedSprite{
 
     onKeyDown(e: KeyboardEvent): void {
         switch (e.key.toUpperCase()) {
-            case " ":
-                break;
             case "A":
             case "ARROWLEFT":
                 this.direction !== 'left' && this.runAnimationArray('left');
-
-                // if (this.x > 0) this.x -= this.size / 4;
-
                 break
             case "D":
             case "ARROWRIGHT":
                 this.direction !== 'right' && this.runAnimationArray('right');
-
-                // if (this.x < 500 - this.size) this.x += this.size / 4;
-
                 break
             case "W":
             case "ARROWUP":
                 if(!this.isJumping) this.isJumping = true;
-                break
-            case "S":
-            case "ARROWDOWN":
-                console.log('crouch');
                 break
         }
     }
@@ -63,31 +54,13 @@ export default class Knight extends PIXI.AnimatedSprite{
     }
 
     idleAnimationArray(){
-        let textureArray = [];
-
-        for (let i=0; i < 4; i++)
-        {
-            let texture = PIXI.Texture.from(`./images/knight/knight iso char_idle_${i}.png`);
-            textureArray.push(texture);
-        };
-
-        this.textures = textureArray;
+        this.textures = this.knightTextures.idle;
         this.play();
     }
 
     runAnimationArray(direction: 'left' | 'right' | 'idle' = 'left') {
-        let textureArray = [];
-        const directionNamePath = direction === 'idle' ? 'char_idle' : `char_run ${direction}`
-
         this.direction = direction;
-
-        for (let i=0; i < 4; i++)
-        {
-            let texture = PIXI.Texture.from(`/images/knight/knight iso ${directionNamePath}_${i}.png`);
-            textureArray.push(texture);
-        };
-
-        this.textures = textureArray;
+        this.textures = this.knightTextures[direction];
         this.play();
     }
 
@@ -117,6 +90,11 @@ export default class Knight extends PIXI.AnimatedSprite{
         }
 
         this.jump();
-
     }
+}
+
+export interface knightTypes {
+    idle: Array<PIXI.Texture>,
+    left: Array<PIXI.Texture>,
+    right: Array<PIXI.Texture>
 }

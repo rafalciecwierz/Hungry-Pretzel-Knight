@@ -7,7 +7,7 @@ export default class Gui extends PIXI.Container {
     livesText: PIXI.Text;
     scoreText: PIXI.Text;
 
-    constructor(score: number, lives: number) {
+    constructor(score: number, lives: number, textures: Array<PIXI.Texture>) {
         super();
 
         this.score = score;
@@ -38,7 +38,7 @@ export default class Gui extends PIXI.Container {
         this.addChild(livesBackground);
         this.addChild(this.scoreText);
         this.addChild(this.livesText);
-        this.addChild(this.drawHeart());
+        this.addChild(this.drawHeart(textures));
 
     }
 
@@ -63,16 +63,8 @@ export default class Gui extends PIXI.Container {
         return livesText;
     }
 
-    drawHeart(){
-        let textureArray = [];
-
-        for (let i=1; i <= 2; i++)
-        {
-            let texture = PIXI.Texture.from(`./images/gui/heart${i}.png`);
-            textureArray.push(texture);
-        };
-
-        const heart = new PIXI.AnimatedSprite(textureArray);
+    drawHeart(textures: Array<PIXI.Texture>){
+        const heart = new PIXI.AnimatedSprite(textures);
 
         heart.animationSpeed = 0.02;
         heart.y = this.livesText.y - 2
