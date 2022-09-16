@@ -1,0 +1,25 @@
+{
+  "name": "hungry-knight",
+  "version": "1.0.0",
+  "description": "Simple game based on Pixi.JS engine",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack serve",
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Rafał Ciećwierz",
+  "license": "ISC",
+  "dependencies": {
+    "pixi.js": "^6.5.2"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^11.0.0",
+    "ts-loader": "^9.3.1",
+    "typescript": "^4.8.2",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.0"
+  }
+}
