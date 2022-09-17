@@ -32,8 +32,6 @@ export default class Game {
         // INITIALIZE LOADER
         this.loader = loadGameAssets();
         this.loader.load(this.doneLoading.bind(this))
-
-        sound.add('bg-sound', '/music/bgMusic.mp3');
     }
 
     doneLoading(loader: any, resources: any) {
@@ -109,7 +107,8 @@ export default class Game {
         // START THE TICK
         this.pixi.ticker.add((delta) => this.update())
 
-        sound.play('bg-sound');
+
+        sound.play('bgSound');
     }
 
     update() {
