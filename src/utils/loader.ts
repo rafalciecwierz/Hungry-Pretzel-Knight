@@ -1,4 +1,3 @@
-import { sound } from '@pixi/sound';
 import * as PIXI from 'pixi.js';
 
 const loadGameAssets = () => {
