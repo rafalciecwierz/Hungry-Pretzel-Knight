@@ -45,7 +45,7 @@ const loaderGuiAssets = (loader: PIXI.Loader) => {
 }
 
 const loadMusic = (loader: PIXI.Loader) => {
-    loader.add('bgSound', '/music/bgMusic.mp3');
+    loader.add('bgSound', 'music/bgMusic.mp3');
 }
 
 
