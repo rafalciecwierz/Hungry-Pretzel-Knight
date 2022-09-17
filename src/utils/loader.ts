@@ -9,6 +9,7 @@ const loadGameAssets = () => {
     loaderGuiAssets(loader);
     loadKnightAssets(loader);
     loadFoodAssets(loader);
+    loadPigeonAssets(loader);
 
     loader.onProgress.add((loader) => console.log(loader.progress));
 
@@ -24,12 +25,19 @@ const loadKnightAssets = (loader: PIXI.Loader) => {
     };
 }
 
+const loadPigeonAssets = (loader: PIXI.Loader) => {
+    for (let i = 0; i < 4; i++) {
+        loader.add(`pigeon${i}`, `/pigeon/pigeon${i}.png`);
+    };
+}
+
 const loadMapAssets = (loader: PIXI.Loader) => {
     loader.add('map', '/maps/map.png');
 }
 
 const loadFoodAssets = (loader: PIXI.Loader) => {
     loader.add('pretzel', '/food/pretzel.png');
+    loader.add('peach', '/food/peach.png');
 }
 
 const loaderGuiAssets = (loader: PIXI.Loader) => {

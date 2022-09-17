@@ -53,11 +53,6 @@ export default class Knight extends PIXI.AnimatedSprite{
         this.direction !== 'idle' && this.runAnimationArray('idle');
     }
 
-    idleAnimationArray(){
-        this.textures = this.knightTextures.idle;
-        this.play();
-    }
-
     runAnimationArray(direction: 'left' | 'right' | 'idle' = 'left') {
         this.direction = direction;
         this.textures = this.knightTextures[direction];
@@ -80,6 +75,16 @@ export default class Knight extends PIXI.AnimatedSprite{
                 this.isFalling = false
             }
         }
+    }
+
+    speedUp() {
+        if(this.speed < 6) {
+            this.speed += 0.5;
+        }
+    }
+
+    resetSpeed() {
+        this.speed = 2;
     }
 
     knightUpdate() {

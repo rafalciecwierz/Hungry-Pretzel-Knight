@@ -12,6 +12,7 @@
   "author": "Rafał Ciećwierz",
   "license": "ISC",
   "dependencies": {
+    "@pixi/sound": "^4.3.0",
     "pixi.js": "^6.5.2"
   },
   "devDependencies": {

@@ -28,4 +28,7 @@ export default class Pretzel extends PIXI.Sprite {
         this.speed += 0.05;
     }
 
+    resetSpeed() {
+        this.speed = 1;
+    }
 }

@@ -1,4 +1,5 @@
 import * as PIXI from 'pixi.js';
+import { sound } from '@pixi/sound';
 import Menu from './views/menu';
 import Background from './sprites/bg';
 import Knight from './sprites/knight';
@@ -6,6 +7,8 @@ import Pretzel from './sprites/pretzel';
 import Gui from './views/gui';
 import loadGameAssets from './utils/loader';
 import { collisionDetection } from './utils/collision';
+import Peach from './sprites/peach';
+import Pigeon from './sprites/pigeon';
 
 export default class Game {
 
@@ -18,7 +21,9 @@ export default class Game {
     gui: Gui | undefined;
     menu: Menu | undefined;
     knight: Knight | undefined;
+    pigeon: Pigeon | undefined;
     pretzel: Pretzel | undefined;
+    peach: Peach | undefined;
 
     constructor(width: number, height: number) {
         this.pixi = new PIXI.Application({ width, height, antialias: true });
@@ -27,6 +32,8 @@ export default class Game {
         // INITIALIZE LOADER
         this.loader = loadGameAssets();
         this.loader.load(this.doneLoading.bind(this))
+
+        sound.add('bg-sound', '/music/bgMusic.mp3');
     }
 
     doneLoading(loader: any, resources: any) {
@@ -77,35 +84,65 @@ export default class Game {
 
         });
         this.knight.x = this.pixi.view.width / 2 - this.knight.size / 2;
-        this.knight .visible = false;
+        this.knight.visible = false;
         this.pixi.stage.addChild(this.knight);
+
+        // PIGEON
+        this.pigeon = new Pigeon([
+            resources.pigeon0.texture,
+            resources.pigeon1.texture,
+            resources.pigeon2.texture,
+            resources.pigeon3.texture,
+        ])
+        this.pixi.stage.addChild(this.pigeon);
 
         // PRETZEL
         this.pretzel = new Pretzel(resources.pretzel.texture);
         this.pretzel.visible = false;
         this.pixi.stage.addChild(this.pretzel);
 
+        // Peach
+        this.peach = new Peach(resources.peach.texture);
+        this.peach.visible = false;
+        this.pixi.stage.addChild(this.peach);
+
         // START THE TICK
         this.pixi.ticker.add((delta) => this.update())
+
+        sound.play('bg-sound');
     }
 
     update() {
-        if (this.menu && this.gui && this.knight && this.pretzel) {
+        if (this.menu && this.gui && this.knight && this.pretzel && this.peach && this.pigeon) {
             if (!this.isStart) {
                 if (this.menu.getWasClicked()) {
                     this.menu.removeScene();
+
+                    this.knight.x = this.pixi.view.width / 2 - this.knight.size / 2;
+                    this.knight.resetSpeed();
                     this.knight.visible = true;
-                    this.pretzel.visible = true;
+
                     this.pretzel.backOnPosition();
-                    this.isStart = true;
+                    this.pretzel.resetSpeed();
+                    this.pretzel.visible = true;
+
+                    this.peach.backOnPosition();
+                    this.peach.visible = true;
+
                     this.score = 0;
                     this.lives = 10;
+
                     this.gui.updateLives(this.lives);
                     this.gui.updateScore(this.score);
+
+                    this.isStart = true;
                 }
             } else {
+                // SPIRTES MOVE UPDATE
                 this.knight.knightUpdate();
                 this.pretzel.update();
+                this.peach.update();
+                this.pigeon.pigeonUpdate();
 
                 // GRABBING THE PRETZEL
                 if (collisionDetection(this.knight, this.pretzel)) {
@@ -121,8 +158,27 @@ export default class Game {
                     this.gui.updateLives(this.lives);
                 };
 
+                // GRABBING THE PEACH
+                if (collisionDetection(this.knight, this.peach)) {
+                    this.peach.backOnPosition();
+                    this.knight.speedUp();
+                }
+
+                // PEACH OUT
+                if (this.peach.y > 300) {
+                    this.peach.backOnPosition();
+                };
+
+                // STOMPING ON THE PIGEON
+                if (collisionDetection(this.knight, this.pigeon)) {
+                    this.pigeon.backOnPosition();
+                    this.lives -= 3;
+                    if(this.lives < 0) this.lives = 0;
+                    this.gui.updateLives(this.lives);
+                }
+
                 // END OF THE GAME
-                if (this.lives === 0) {
+                if (this.lives <= 0) {
                     this.isStart = false;
                     this.score = 0;
                     this.lives = 2;
