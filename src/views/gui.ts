@@ -15,7 +15,6 @@ export default class Gui extends PIXI.Container {
         this.scoreText = this.drawScoreText();
         this.livesText = this.drawLivesText();
 
-
         const livesBackground = drawRoundedRectangle({
             x: -10,
             y: this.livesText.y - 5,
@@ -46,6 +45,7 @@ export default class Gui extends PIXI.Container {
         const scoreText = new PIXI.Text(`Score: ${this.score}`, {
             fontSize: 10
         });
+
         scoreText.x = 10;
         scoreText.y = 30;
 
@@ -63,7 +63,7 @@ export default class Gui extends PIXI.Container {
         return livesText;
     }
 
-    drawHeart(textures: Array<PIXI.Texture>){
+    drawHeart(textures: Array<PIXI.Texture>) {
         const heart = new PIXI.AnimatedSprite(textures);
 
         heart.animationSpeed = 0.02;

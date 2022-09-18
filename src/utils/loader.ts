@@ -48,5 +48,4 @@ const loadMusic = (loader: PIXI.Loader) => {
     loader.add('bgSound', 'music/bgMusic.mp3');
 }
 
-
 export default loadGameAssets;

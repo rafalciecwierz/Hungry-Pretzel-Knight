@@ -12,16 +12,16 @@ export default class Pretzel extends PIXI.Sprite {
     update() {
         const luck = Math.random();
 
-        if(luck < 0.008) {
-             this.isFalling = true;
+        if (luck < 0.008) {
+            this.isFalling = true;
         }
-        if(this.isFalling) {
+        if (this.isFalling) {
             this.y += this.speed;
             this.rotation += 0.05;
         }
     }
 
-    backOnPosition(){
+    backOnPosition() {
         this.y = -30;
         this.x = (Math.random() * 460) + 20;
         this.isFalling = false;

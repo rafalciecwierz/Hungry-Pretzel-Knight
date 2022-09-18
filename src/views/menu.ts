@@ -5,7 +5,6 @@ export default class Menu {
     buttonText: PIXI.Text;
     buttonBg: PIXI.Graphics;
     background: PIXI.Graphics;
-    isWelcome: boolean;
     scene: PIXI.Container;
     app: PIXI.Application;
     wasClicked: boolean = false;
@@ -15,7 +14,6 @@ export default class Menu {
         options: menuOptionsType
     ) {
         this.app = app;
-        this.isWelcome = options.isWelcome;
         this.title = this.createTitle(options.title);
         this.buttonText = this.createButtonText(options.buttonText);
         this.buttonBg = this.drawRectangle(0x333333);
@@ -110,5 +108,4 @@ export default class Menu {
 interface menuOptionsType {
     title: string;
     buttonText: string;
-    isWelcome: boolean
 }

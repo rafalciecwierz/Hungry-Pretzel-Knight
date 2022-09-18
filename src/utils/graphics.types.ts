@@ -1,4 +1,4 @@
-export interface drawRoundedRectangleType  {
+export interface drawRoundedRectangleType {
     x: number;
     y: number;
     width: number;

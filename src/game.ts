@@ -9,13 +9,14 @@ import loadGameAssets from './utils/loader';
 import { collisionDetection } from './utils/collision';
 import Peach from './sprites/peach';
 import Pigeon from './sprites/pigeon';
+import { getHighScore, isHighScore, setHighScore } from './utils/highScore';
 
 export default class Game {
-
     pixi: PIXI.Application;
     loader: PIXI.Loader;
     score: number = 0;
     lives: number = 10;
+    highScore: number;
     isStart: boolean = false;
     bg: Background | undefined;
     gui: Gui | undefined;
@@ -32,6 +33,9 @@ export default class Game {
         // INITIALIZE LOADER
         this.loader = loadGameAssets();
         this.loader.load(this.doneLoading.bind(this))
+
+        // GET HIGH SCORE FROM LOCAL STORAGE
+        this.highScore = getHighScore();
     }
 
     doneLoading(loader: any, resources: any) {
@@ -51,8 +55,7 @@ export default class Game {
         // MENU
         this.menu = new Menu(this.pixi, {
             title: 'Welcome Sir Pretzel!',
-            buttonText: 'Click to start the game',
-            isWelcome: true
+            buttonText: 'Click to start the game'
         });
 
         // KNIGHT
@@ -106,7 +109,6 @@ export default class Game {
 
         // START THE TICK
         this.pixi.ticker.add((delta) => this.update())
-
 
         sound.play('bgSound');
     }
@@ -172,12 +174,19 @@ export default class Game {
                 if (collisionDetection(this.knight, this.pigeon)) {
                     this.pigeon.backOnPosition();
                     this.lives -= 3;
-                    if(this.lives < 0) this.lives = 0;
+                    if (this.lives < 0) this.lives = 0;
                     this.gui.updateLives(this.lives);
                 }
 
                 // END OF THE GAME
                 if (this.lives <= 0) {
+                    let endMsg = `You lost! Score to beat ${this.highScore}.`;
+
+                    if (isHighScore(this.score)) {
+                        setHighScore(this.score);
+                        endMsg = `Wow! High score with ${this.score} points!`;
+                    }
+
                     this.isStart = false;
                     this.score = 0;
                     this.lives = 2;
@@ -185,9 +194,8 @@ export default class Game {
                     this.pretzel.visible = false;
 
                     this.menu = new Menu(this.pixi, {
-                        title: 'You lost!',
+                        title: endMsg,
                         buttonText: 'Click here to try again',
-                        isWelcome: false
                     });
                 }
             }

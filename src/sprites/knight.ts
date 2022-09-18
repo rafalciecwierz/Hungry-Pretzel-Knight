@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 
-export default class Knight extends PIXI.AnimatedSprite{
+export default class Knight extends PIXI.AnimatedSprite {
     size: number = 48;
     speed: number = 2;
     isJumping: boolean = false;
@@ -12,7 +12,7 @@ export default class Knight extends PIXI.AnimatedSprite{
         idle,
         left,
         right
-    }:knightTypes ) {
+    }: knightTypes) {
         super(idle);
 
         this.knightTextures = {
@@ -44,7 +44,7 @@ export default class Knight extends PIXI.AnimatedSprite{
                 break
             case "W":
             case "ARROWUP":
-                if(!this.isJumping) this.isJumping = true;
+                if (!this.isJumping) this.isJumping = true;
                 break
         }
     }
@@ -59,17 +59,17 @@ export default class Knight extends PIXI.AnimatedSprite{
         this.play();
     }
 
-    jump(){
-        if(this.isJumping && !this.isFalling) {
+    jump() {
+        if (this.isJumping && !this.isFalling) {
             this.y -= 1.5;
-            if(this.y < 180) {
+            if (this.y < 180) {
                 this.isJumping = false;
                 this.isFalling = true;
             }
         }
 
-        if(this.isFalling) {
-            if(this.y < 250) {
+        if (this.isFalling) {
+            if (this.y < 250) {
                 this.y += 1.5;
             } else {
                 this.isFalling = false
@@ -78,7 +78,7 @@ export default class Knight extends PIXI.AnimatedSprite{
     }
 
     speedUp() {
-        if(this.speed < 6) {
+        if (this.speed < 6) {
             this.speed += 0.5;
         }
     }
@@ -88,9 +88,9 @@ export default class Knight extends PIXI.AnimatedSprite{
     }
 
     knightUpdate() {
-        if(this.direction === 'left' && this.x > 0){
+        if (this.direction === 'left' && this.x > 0) {
             this.x -= this.speed;
-        } else if(this.direction === 'right' && this.x < 500 - this.width){
+        } else if (this.direction === 'right' && this.x < 500 - this.width) {
             this.x += this.speed;
         }
 

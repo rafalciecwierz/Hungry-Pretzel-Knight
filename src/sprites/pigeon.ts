@@ -6,7 +6,7 @@ export default class Pigeon extends PIXI.AnimatedSprite {
     minimumMillisecondsWait: number = 5000;
     rangeMillisecondsWait: number = 20000;
 
-    constructor(texture: Array<PIXI.Texture>){
+    constructor(texture: Array<PIXI.Texture>) {
         super(texture);
 
         this.y = 270;
@@ -22,15 +22,15 @@ export default class Pigeon extends PIXI.AnimatedSprite {
     }
 
     pigeonUpdate() {
-        if(this.isFlying) {
-            if(this.x < 500){
+        if (this.isFlying) {
+            if (this.x < 500) {
                 this.x += 2;
             } else {
                 this.backOnPosition();
             }
         }
 
-        if(Date.now() - this.spawnTimestamp > (Math.random() * this.rangeMillisecondsWait) + this.minimumMillisecondsWait) {
+        if (Date.now() - this.spawnTimestamp > (Math.random() * this.rangeMillisecondsWait) + this.minimumMillisecondsWait) {
             this.isFlying = true;
         }
     }
