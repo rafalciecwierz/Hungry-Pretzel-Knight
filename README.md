@@ -1,5 +1,8 @@
 # 🥨 Hungry Pretzel Knight 🥨
 LiveDemo: https://rafalciecwierz.github.io/Hungry-Pretzel-Knight/
+
+![Game Cover](readmeCover.png)
+
 ### Stack 
 [Pixi.JS](https://pixijs.com/) | [TypeScript](https://www.typescriptlang.org/) | [Webpack](https://webpack.js.org/)
 
