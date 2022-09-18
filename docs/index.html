@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hungry Knight</title>
+    <title>Hungry Pretzel Knight</title>
     <style>
         * {
             padding: 0;
@@ -13,18 +13,31 @@
 
         body {
             background-color: #103051;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .title {
+            color: #d08b69;
+        }
+
+        .instructions {
+            color: #fff;
         }
 
         canvas {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(2);
+            width: 1000px;
+            transform-origin: center;
         }
     </style>
 </head>
 <body>
-    <h1>Hungry Knight</h1>
+    <h1 class="title">🥨 Hungry Pretzel Knight 🥨</h1>
+    <p class="instructions">Instructions: Move with arrows. Try to catch as many pretzels as you can. Watch out for the pigeon! Good luck!</p>
     <script src="./bundle.js"></script>
 </body>
 </html>
