@@ -53,4 +53,4 @@ Here are some links to the specific resources used in the game:
 [Heart](https://kicked-in-teeth.itch.io/emoticons)
 
 
-I hope you gonna enjoy it ;)
+I hope you will enjoy it ;)
